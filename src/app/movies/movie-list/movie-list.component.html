@@ -1,3 +1,7 @@
-<p>
-  movie-list works!
-</p>
+<div class="row">
+	<div class="col-3" *ngFor="let movie of movies">
+		<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{movie.poster_path}}">
+		<p>{{movie.title}}</p>
+		<p>{{movie.release_date | slice:0:4}}</p>
+	</div>
+</div>
