@@ -14,6 +14,7 @@ import { AboutComponent } from './core/about/about.component';
 import { MovieListComponent } from './movies/movie-list/movie-list.component';
 import { PaginationComponent } from './movies/pagination/pagination.component';
 import { SearchFormComponent } from './movies/search-form/search-form.component';
+import { MovieComponent } from './movies/movie/movie.component';
 
 
 
@@ -26,6 +27,7 @@ import { SearchFormComponent } from './movies/search-form/search-form.component'
     MovieListComponent,
     PaginationComponent,
     SearchFormComponent,
+    MovieComponent,
   ],
   imports: [
     BrowserModule,

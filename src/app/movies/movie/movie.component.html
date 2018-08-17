@@ -1,0 +1,40 @@
+<div class="container-fluid">
+	<div class="row" *ngIf="movie">
+	<div class="col-3">
+		<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{movie.poster_path}}">
+	</div>
+	<div class="col-9">
+		<div>
+			<h2>{{movie.title}}</h2>
+			<span>({{movie.release_date | slice:0:4}})</span>
+			<span *ngFor="let genre of movie.genres">{{genre.name}} </span>
+			<h6>Overview:</h6>
+			<span> {{movie.overview}}</span>
+		</div>
+
+		<div>
+			<span>Duration: {{movie.runtime}}min.</span>
+			<span>Vote: {{movie.vote_average}}</span>
+			<span> Vote count: {{movie.vote_count}} </span>
+		</div>
+		
+	</div>
+	</div>
+
+	<div class="row">
+		<div class="col">
+			<h3>Recommended movies</h3>
+			<div >
+				<div class="row">
+					<div class="col-2" *ngFor="let rec of recommendedMovies | slice:0:6">
+						<div [routerLink]="['/movies/movie/', rec.id]">
+						<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{rec.poster_path}}" class="recommImg">
+						<h6>{{rec.title}}</h6>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>

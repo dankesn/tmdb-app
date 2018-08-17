@@ -42,8 +42,8 @@ export class MovieListComponent implements OnInit {
     searchMovies(searchString: string, page?){
       this.searchText = searchString;
       this.movieService.searchMovies(searchString, page).subscribe(res => {
-        this.movies = res.results;
-        this.movieList = res;  
+      this.movies = res.results;
+      this.movieList = res;  
       },
      error =>{
       console.log("Error. Reason:", error.statusText);

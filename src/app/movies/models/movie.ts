@@ -27,7 +27,6 @@ export class Movie {
     this.original_title = obj && obj.original_title || null;
     this.genre_ids = obj && obj.genre_ids || null;
     this.backdrop_path = obj && obj.backdrop_path || null;
-    this.poster_path = obj && obj.poster_path || null;
     this.adult = obj &&  obj.adult || [];
     this.overview = obj && obj.overview || null;
     this.release_date = obj && obj.release_date || null;

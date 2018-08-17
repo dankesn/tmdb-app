@@ -25,7 +25,6 @@ export class SearchFormComponent implements OnInit {
   search() :void{
   		this.onSearch.emit(this.searchForm.value.searchText);
   		this.route.navigate(['movies/search']);
-
   	}
 
 }
