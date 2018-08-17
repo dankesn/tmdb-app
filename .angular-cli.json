@@ -17,9 +17,10 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "app",
+      "prefix": "tmdb",
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "assets/css/bootstrap.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
