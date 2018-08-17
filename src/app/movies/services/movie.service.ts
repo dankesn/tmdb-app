@@ -14,8 +14,17 @@ export class MovieService {
   constructor(private http: HttpClient) { }
 
  /* Get popular/upcoming or now playing movies depending on the list parameter */
-  getMovies(list: string): Observable<MovieList> {   
-  	return this.http.get(`${movieUrl}${list}?api_key=${apiKey}`).map(res =>{
+  getMovies(list: string, newParams?: any ): Observable<MovieList> { 
+
+     let queryParams = {}; 
+
+     if(newParams) {
+      queryParams = {
+        params: new HttpParams()
+          .set("page", newParams.page && newParams.page.toString() || '1')
+      }
+    }
+  	return this.http.get(`${movieUrl}${list}?api_key=${apiKey}`, queryParams).map(res =>{
   		return new MovieList(res); 
   	})
   	

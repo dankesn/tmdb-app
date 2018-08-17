@@ -5,3 +5,8 @@
 		<p>{{movie.release_date | slice:0:4}}</p>
 	</div>
 </div>
+<div class="row">
+	<div class="col">
+		<tmdb-pagination [totalItems]="movieList?.total_results" [totalPages]="movieList?.total_pages" (pageChange)="updateMovies($event)"></tmdb-pagination>
+	</div>	
+</div>
