@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { MovieService } from './movies/services/movie.service'; 
 
 
@@ -11,6 +13,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { AboutComponent } from './core/about/about.component';
 import { MovieListComponent } from './movies/movie-list/movie-list.component';
 import { PaginationComponent } from './movies/pagination/pagination.component';
+import { SearchFormComponent } from './movies/search-form/search-form.component';
 
 
 
@@ -22,11 +25,14 @@ import { PaginationComponent } from './movies/pagination/pagination.component';
     AboutComponent,
     MovieListComponent,
     PaginationComponent,
+    SearchFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule, 
+    ReactiveFormsModule,
   ],
   providers: [MovieService],
   bootstrap: [AppComponent]
