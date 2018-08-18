@@ -14,19 +14,26 @@ export class MovieListComponent implements OnInit {
   movieList: MovieList; 
 	movies: Movie []; 
   searchText: string;
+  isFav: string; 
+  isLogged: boolean = false; 
 
   constructor(private route: ActivatedRoute, private movieService: MovieService) { }
 
   ngOnInit() {
   		this.route.params.subscribe(params =>{
   		this.list = this.route.snapshot.paramMap.get('list');
-  		this.updateMovies(); 
-    
+  		this.updateMovies();    
  })
     }
 
     updateMovies(page?){
-      if(this.list !== "search"){
+
+      if(this.list == 'favourite'){
+        this.movieService.getFavouriteMovies(page).subscribe(response =>{
+          this.movies = response.results; 
+        })
+        
+      }else if(this.list !== "search"){
       this.movieService.getMovies(this.list, page).subscribe(response=>{
       this.movies = response.results; 
       this.movieList = response; 
@@ -34,12 +41,13 @@ export class MovieListComponent implements OnInit {
      error =>{
       console.log("Error. Reason:", error.statusText);
     })
-     } else { this.searchMovies(this.searchText, page)} 
+     } else {this.searchMovies(this.searchText, page)} 
   
 
     }
 
     searchMovies(searchString: string, page?){
+
       this.searchText = searchString;
       this.movieService.searchMovies(searchString, page).subscribe(res => {
       this.movies = res.results;
@@ -48,6 +56,10 @@ export class MovieListComponent implements OnInit {
      error =>{
       console.log("Error. Reason:", error.statusText);
     })
+    }
+
+    isFavourite(id){
+      return this.movieService.isFavouriteMovie(id);
     }
 
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../login/service/auth.service'
 
 @Component({
   selector: 'tmdb-navbar',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  isLoggedIn: boolean; 
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+  }
+
+  logout(){
+    this.authService.logout(); 
   }
 
 }

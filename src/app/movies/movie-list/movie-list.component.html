@@ -15,7 +15,8 @@
 		<div  [routerLink]="['/movies/movie/', movie.id]">
 		<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{movie.poster_path}}">
 		<p >{{movie.title}}</p>
-		<p>{{movie.release_date | slice:0:4}}</p>
+		<span>{{movie.release_date | slice:0:4}}</span>
+		<img src="{{isFavourite(movie.id)}}" class="favImg" *ngIf="isLogged">
 	</div>
 	</div>
 </div>

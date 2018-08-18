@@ -4,7 +4,9 @@
 	<ul class="nav">
 		<li class="nav-item ">
 			<a class="nav-link links" [routerLink]="['/movies/popular']">Popular</a> 
-			<a class="nav-link links" [routerLink]="['/login']">Login</a> 
+			<a class="nav-link links" [routerLink]="['/movies/favourite']">My Movies</a> 
+			<a class="nav-link links" [routerLink]="['/login']" *ngIf="!isLoggedIn">Login</a> 
+			<a class="nav-link links" (click)="logout()">Logout</a> 
 			<a class="nav-link links" [routerLink]="['/movies/now_playing']">Now playing</a> 
 			<a class="nav-link links" [routerLink]="['/movies/upcoming']">Upcoming</a> 
 			<a class="nav-link links" [routerLink]="['about']">About</a> 

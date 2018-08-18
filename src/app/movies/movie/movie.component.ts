@@ -15,6 +15,7 @@ export class MovieComponent implements OnInit {
 	id: number; 
 	movie: MovieDetails;
   recommendedMovies: Movie [];
+  isLogged: boolean = false; 
 
   constructor(private movieService: MovieService, private route: ActivatedRoute) { }
 
@@ -31,5 +32,9 @@ export class MovieComponent implements OnInit {
   }
 
 )}
+
+    isFavourite(id){
+      return this.movieService.isFavouriteMovie(id); 
+    }
 
 }

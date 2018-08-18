@@ -15,14 +15,14 @@ export class MovieService {
   constructor(private http: HttpClient) { }
 
  /* Get popular/upcoming or now-playing movies depending on the list parameter */
-  getMovies(list: string, newParams?: any ): Observable<MovieList> { 
+  getMovies(list: string, params?: any ): Observable<MovieList> { 
 
      let queryParams = {}; 
 
-     if(newParams) {
+     if(params) {
       queryParams = {
         params: new HttpParams()
-          .set("page", newParams.page && newParams.page.toString() || '1')
+          .set("page", params.page && params.page.toString() || '1')
       }
     }
   	return this.http.get(`${baseUrl}movie/${list}?api_key=${apiKey}`, queryParams).map(res =>{
@@ -31,14 +31,14 @@ export class MovieService {
   	
   }
 
-  searchMovies(searchString:string, newParams?:any): Observable<MovieList> {
+  searchMovies(searchString:string, params?:any): Observable<MovieList> {
 
         let queryParams = {}; 
 
-     if(newParams) {
+     if(params) {
       queryParams = {
         params: new HttpParams()
-          .set("page", newParams.page && newParams.page.toString() || '1')
+          .set("page", params.page && params.page.toString() || '1')
       }
     }
     return this.http.get(`${baseUrl}search/movie?api_key=${apiKey}&language=en-US&query=${searchString}`, queryParams).map(res =>{
@@ -62,11 +62,29 @@ export class MovieService {
 
   }
 
-  getFavouriteMovies(): Observable<MovieList> {
-    let tempId = (JSON.parse(localStorage.getItem("account"))).id;
-    return this.http.get(`${baseUrl}account/${tempId}/favorite/movies?api_key=${apiKey}&session_id=${JSON.parse(localStorage.getItem("sessionId"))}`).map(res =>{
+  getFavouriteMovies(params?: any): Observable<MovieList> {
+
+     let queryParams = {}; 
+
+     if(params) {
+      queryParams = {
+        params: new HttpParams()
+          .set("page", params.page && params.page.toString() || '1')
+      }
+    }
+    let tempId = (JSON.parse(localStorage.getItem("currentUser"))).id;
+    return this.http.get(`${baseUrl}account/${tempId}/favorite/movies?api_key=${apiKey}&session_id=${JSON.parse(sessionStorage.getItem("sessionId"))}`).map(res =>{
       return new MovieList(res); 
     })
   }
 
-}
+  isFavouriteMovie(id){
+
+    let favouriteMovieIds = JSON.parse(localStorage.getItem("favouriteMovieIds"));
+    
+      if (favouriteMovieIds.indexOf(id) > -1) {
+        return "assets/images/favourite512x512.png";
+      }else return "assets/images/add-to-favorites-icon-63436.png";
+  }
+
+ }

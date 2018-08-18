@@ -10,18 +10,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-	loginForm: FormGroup;
+	loginForm: FormGroup; 
 
   constructor(private fb: FormBuilder, 
   			  private authservice: AuthService, 
   			  private movieService: MovieService,
   			  private router: Router) { 
+
   this.loginForm = this.fb.group({
 			'username': '',
 			'password' : '',
 			'request_token': ''
 		}); 
 }
+
+isLoggedIn: boolean; 
 
   ngOnInit() {
   }
@@ -39,11 +42,11 @@ export class LoginComponent implements OnInit {
   
   			/* With validated token we can get session ID*/
   			this.authservice.createSessionId().subscribe(res => {
-  			localStorage.setItem('sessionId', JSON.stringify(res.session_id));
+  			sessionStorage.setItem('sessionId', JSON.stringify(res.session_id));
   		
   				/* With session ID  we can get account ID */
-  				this.authservice.getAcoountId().subscribe(res => {
-  				localStorage.setItem('account', JSON.stringify(res));
+  				this.authservice.getAccountId().subscribe(res => {
+  				localStorage.setItem('currentUser', JSON.stringify(res));
   		
 
   					/* With account ID  we can get favourite Movies and get their IDs*/
@@ -57,5 +60,7 @@ export class LoginComponent implements OnInit {
  	})
  	 this.router.navigate(['movies/popular']);
   }
+
+  
 
 }

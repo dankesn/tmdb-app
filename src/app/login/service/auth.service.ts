@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 import 'rxjs/add/operator/map'
 
 import { Token } from '../models/token';
@@ -13,7 +14,7 @@ const baseUrl = 'https://api.themoviedb.org/3/';
 @Injectable()
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
  createRequestToken(){
  	return this.http.get(`${baseUrl}authentication/token/new?api_key=${apiKey}`).map(res =>{
@@ -33,11 +34,23 @@ export class AuthService {
  	})
  }
 
- getAcoountId(){
+ getAccountId(){
  	return this.http.get(`${baseUrl}account?api_key=${apiKey}&session_id=${JSON.parse(localStorage.getItem("sessionId"))}`).map(res =>{
  		return new Account(res); 
  	})
  }
+
+ logout(){
+ 	localStorage.removeItem('currentUser');
+    localStorage.removeItem('favouriteMovieIds');
+    sessionStorage.removeItem('sessionId');
+    this.router.navigate(['movies/popular']);
+ }
+
+ isLoggedIn(log: boolean){
+ 	return !log; 
+ }
+
 
 }
 
