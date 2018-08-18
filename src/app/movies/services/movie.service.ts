@@ -46,18 +46,27 @@ export class MovieService {
     })
   }
 
+
   getMovieDetails(movieId): Observable<MovieDetails> {
     return this.http.get(`${baseUrl}movie/${movieId}?api_key=${apiKey}`).map(res =>{
       return new MovieDetails(res);
     })
 
   }
+  
 
   getMovieRecommendation(movieId): Observable<MovieList> {
     return this.http.get(`${baseUrl}movie/${movieId}/recommendations?api_key=${apiKey}`).map(res =>{
       return new MovieList(res);
     })
 
+  }
+
+  getFavouriteMovies(): Observable<MovieList> {
+    let tempId = (JSON.parse(localStorage.getItem("account"))).id;
+    return this.http.get(`${baseUrl}account/${tempId}/favorite/movies?api_key=${apiKey}&session_id=${JSON.parse(localStorage.getItem("sessionId"))}`).map(res =>{
+      return new MovieList(res); 
+    })
   }
 
 }
