@@ -13,7 +13,7 @@
 		</div>
 
 		<div>
-			<img src="{{isFavourite(movie.id)}}" class="favImg" *ngIf=isLogged>
+			<a (click)="addToFavourites(movie.id)"><img src="{{isFavourite(movie.id)}}" class="favImg" *ngIf="isLoggedIn()"></a>
 			<span>Duration: {{movie.runtime}}min.</span>
 			<span>Vote: {{movie.vote_average}}</span>
 			<span> Vote count: {{movie.vote_count}} </span>

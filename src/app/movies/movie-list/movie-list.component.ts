@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Movie } from '../models/movie';
 import { MovieList } from '../models/movie-list';
-import { MovieService } from '../services/movie.service'; 
+import { MovieService } from '../services/movie.service';
+import { AuthService } from '../../login/service/auth.service'; 
 
 @Component({
   selector: 'tmdb-movie-list',
@@ -14,12 +15,17 @@ export class MovieListComponent implements OnInit {
   movieList: MovieList; 
 	movies: Movie []; 
   searchText: string;
-  isFav: string; 
-  isLogged: boolean = false; 
 
-  constructor(private route: ActivatedRoute, private movieService: MovieService) { }
+  newFav = {
+  "media_type": "movie",
+  "media_id": null,
+  "favorite": null
+}
+
+  constructor(private route: ActivatedRoute, private movieService: MovieService, private authService: AuthService) { }
 
   ngOnInit() {
+    console.log(JSON.parse(localStorage.getItem("currentUser")))
   		this.route.params.subscribe(params =>{
   		this.list = this.route.snapshot.paramMap.get('list');
   		this.updateMovies();    
@@ -31,6 +37,7 @@ export class MovieListComponent implements OnInit {
       if(this.list == 'favourite'){
         this.movieService.getFavouriteMovies(page).subscribe(response =>{
           this.movies = response.results; 
+          this.movieList = response; 
         })
         
       }else if(this.list !== "search"){
@@ -58,8 +65,26 @@ export class MovieListComponent implements OnInit {
     })
     }
 
-    isFavourite(id){
-      return this.movieService.isFavouriteMovie(id);
+
+    isFavourite(id): string{
+      if(this.movieService.isFavouriteMovie(id) == true){
+        return "assets/images/favourite512x512.png"
+      }else return "assets/images/add-to-favorites-icon-63436.png";
+    }
+
+    isLoggedIn(){
+      return this.authService.getUserLoggedIn(); 
+    }
+
+    addToFavourites(id){
+      this.newFav.media_id = id;
+      this.newFav.favorite = !(this.movieService.isFavouriteMovie(id));
+      this.movieService.addOrRemoveFromFavourite(this.newFav).subscribe(res =>{
+      },
+      error =>{
+      console.log("Error. Reason:", error.statusText);
+    }) 
+
     }
 
 

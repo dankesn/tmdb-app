@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { MovieList } from '../models/movie-list'; 
 import { Movie } from '../models/movie'; 
 import { MovieDetails } from '../models/movie-details'; 
+import { FavouriteMovieUpdate } from '../../login/models/favourite-movie-update'
 
 const apiKey = '0e2ff32149f0c6d10bd2f2ff9643ee22';
 const baseUrl = 'https://api.themoviedb.org/3/';
@@ -73,18 +74,36 @@ export class MovieService {
       }
     }
     let tempId = (JSON.parse(localStorage.getItem("currentUser"))).id;
-    return this.http.get(`${baseUrl}account/${tempId}/favorite/movies?api_key=${apiKey}&session_id=${JSON.parse(sessionStorage.getItem("sessionId"))}`).map(res =>{
+    return this.http.get(`${baseUrl}account/${tempId}/favorite/movies?api_key=${apiKey}&session_id=${JSON.parse(sessionStorage.getItem("sessionId"))}`, queryParams).map(res =>{
       return new MovieList(res); 
     })
   }
 
   isFavouriteMovie(id){
-
     let favouriteMovieIds = JSON.parse(localStorage.getItem("favouriteMovieIds"));
-    
       if (favouriteMovieIds.indexOf(id) > -1) {
-        return "assets/images/favourite512x512.png";
-      }else return "assets/images/add-to-favorites-icon-63436.png";
+        return true;
+      }else return false;
+  }
+
+  addOrRemoveFromFavourite(newFav){
+
+    let tempId = (JSON.parse(localStorage.getItem("currentUser"))).id;
+    let favouriteMovieIds = JSON.parse(localStorage.getItem("favouriteMovieIds"));
+
+    if (newFav.favorite == false){
+      let index = favouriteMovieIds.indexOf(newFav.media_id)
+        if (index > -1) {
+        favouriteMovieIds.splice(index, 1);
+        localStorage.setItem('favouriteMovieIds', JSON.stringify(favouriteMovieIds));
+       }
+     } else {favouriteMovieIds.push(newFav.media_id);
+      localStorage.setItem('favouriteMovieIds', JSON.stringify(favouriteMovieIds)); 
+    }
+    
+    return this.http.post(`https://api.themoviedb.org/3/account/${tempId}/favorite?api_key=${apiKey}&session_id=${JSON.parse(sessionStorage.getItem("sessionId"))}`, newFav).map(res =>{
+      return new FavouriteMovieUpdate(res); 
+    })
   }
 
  }

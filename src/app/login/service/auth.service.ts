@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map'
+import { RequestOptions, RequestMethod} from '@angular/http';
 
 import { Token } from '../models/token';
 import { Session } from '../models/session'; 
@@ -11,8 +12,13 @@ import { Account } from '../models/account';
 const apiKey = '0e2ff32149f0c6d10bd2f2ff9643ee22';
 const baseUrl = 'https://api.themoviedb.org/3/';
 
+ 
+
 @Injectable()
 export class AuthService {
+
+  isUserLoggedIn: boolean = false;
+  username: string; 
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -35,20 +41,42 @@ export class AuthService {
  }
 
  getAccountId(){
- 	return this.http.get(`${baseUrl}account?api_key=${apiKey}&session_id=${JSON.parse(localStorage.getItem("sessionId"))}`).map(res =>{
+ 	return this.http.get(`${baseUrl}account?api_key=${apiKey}&session_id=${JSON.parse(sessionStorage.getItem("sessionId"))}`).map(res =>{
  		return new Account(res); 
  	})
  }
 
  logout(){
- 	localStorage.removeItem('currentUser');
-    localStorage.removeItem('favouriteMovieIds');
-    sessionStorage.removeItem('sessionId');
-    this.router.navigate(['movies/popular']);
+
+ 	let options = ({
+
+ headers: {},
+  body: {
+    'session_id': JSON.parse(sessionStorage.getItem("sessionId"))
+  }
+});
+    
+    return this.http.delete(`${baseUrl}authentication/session?apiKey=${apiKey}`, options).map(res=>{
+    	return res; 
+    	
+    	 
+    })
  }
 
- isLoggedIn(log: boolean){
- 	return !log; 
+ setUserLoggedIn(){
+ 	this.isUserLoggedIn = true;
+ }
+
+ getUserLoggedIn(){
+ 	return this.isUserLoggedIn; 
+ }
+
+ setUsername(username){
+ 	this.username = username;
+ }
+
+ getUsername(){
+ 	return this.username;
  }
 
 

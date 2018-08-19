@@ -39,14 +39,16 @@ isLoggedIn: boolean;
   	
 		/* With user data validate token*/
   		this.authservice.validateToken(this.loginForm.value).subscribe(res => {
-  
+       
   			/* With validated token we can get session ID*/
   			this.authservice.createSessionId().subscribe(res => {
   			sessionStorage.setItem('sessionId', JSON.stringify(res.session_id));
-  		
+  	
   				/* With session ID  we can get account ID */
   				this.authservice.getAccountId().subscribe(res => {
   				localStorage.setItem('currentUser', JSON.stringify(res));
+          this.authservice.setUserLoggedIn();
+          this.authservice.setUsername(res.username);  
   		
 
   					/* With account ID  we can get favourite Movies and get their IDs*/
