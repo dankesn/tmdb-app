@@ -16,7 +16,10 @@ export class NavbarComponent implements OnInit {
 
   logout(){
     this.authService.logout().subscribe(res=>{
-   }); 
+   },
+      error =>{
+        console.log("Error. Reason:", error.statusText);
+      }); 
   }
 
   isLoggedIn(){

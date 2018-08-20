@@ -1,15 +1,15 @@
 <div container-fluid>
 <nav class="navbar navigation navbar-expand-sm fixed-top">
 	<div class="row">
-		<div class="col-5 logo">
+		<div class="col-xl-5 col-lg-4 col-md-3 logo">
 			<img src="assets/images/tmdb-logo.png">
 		</div>
 
-		<div class="col-7">
+		<div class="col-xl-7 col-lg-8 col-md-9">
 			
 			<h1 class="navbar-brand header title">The Movie Database</h1>
 			<span *ngIf="isLoggedIn()" class="hello">Hi,&nbsp;{{getUsername()}}!</span>
-			<ul class="navbar-nav ml-auto nav-line">
+			<ul class="navbar-nav nav-line">
 				<li class="nav-item ">
 					<a class="nav-link" [routerLink]="['/movies/popular']" routerLinkActive="active">Popular</a> 
 				</li>
@@ -31,7 +31,6 @@
 				<li class="nav-item ml-auto">
 					<a class="nav-link " (click)="logout()" *ngIf="isLoggedIn()">Logout</a> 
 				</li>
-
 			</ul>
 		</div>
 	</div>

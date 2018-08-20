@@ -9,7 +9,14 @@
 		</div>
 	</div>
 	
-
+	<div class="row">
+		<div class="col">
+			<!-- to remove underscore in now_playing -->
+			<h5 *ngIf="list !=='now_playing'">{{list | titlecase}} &nbsp;Movies</h5>
+			<h5 *ngIf="list =='now_playing'"> Now playing </h5>
+			<span>({{movieList?.total_results}})</span>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 movie-template" *ngFor="let movie of movies">
 			<div>

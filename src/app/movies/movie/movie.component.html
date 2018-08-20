@@ -1,34 +1,40 @@
 <div class="container-fluid">
 	<div class="row" *ngIf="movie">
-		<div class="col-3">
+		<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
 			<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{movie.poster_path}}">
 		</div>
-		<div class="col-9">
+		<div class="col-xl-9 col-lg-8 col-sm-12 movie-desc">
 			<div>
 				<h2>{{movie.title}}</h2>
 				<span>({{movie.release_date | slice:0:4}})</span>
-				<span *ngFor="let genre of movie.genres">{{genre.name}} </span>
-				<h6>Overview:</h6>
-				<span> {{movie.overview}}</span>
-			</div>
-
-			<div>
 				<a (click)="addToFavourites(movie.id)"><img src="{{isFavourite(movie.id)}}" class="favImg" *ngIf="isLoggedIn()"></a>
-				<span>Duration: {{movie.runtime}}min.</span>
-				<span>Vote: {{movie.vote_average}}</span>
-				<span> Vote count: {{movie.vote_count}} </span>
+				<div class="movie-genres">
+					<span *ngFor="let genre of movie.genres">{{genre.name}}&emsp;</span>
+				</div>
+				<h6>Overview:</h6>
+				<article> {{movie.overview}}</article>
+			</div>
+			<br>
+			<div>
+				<span class="voting">Duration:&nbsp;</span><span>{{movie.runtime}}min.&emsp;</span>
+				<span class="voting">Vote:&nbsp;</span><span>{{movie.vote_average}}&emsp;</span>
+				<span class="voting"> Vote count:&nbsp;</span> <span>{{movie.vote_count}}&emsp;</span>
 			</div>
 			
 		</div>
 	</div>
 
+	<hr>
+
 	<div class="row">
-		<div class="col">
+		<div class="col movie-recom">
+			<br>
 			<h3>Recommended movies</h3>
-			<div >
+			<br>
+			<div>
 				<div class="row">
-					<div class="col-2" *ngFor="let rec of recommendedMovies | slice:0:6">
-						<div [routerLink]="['/movies/movie/', rec.id]">
+					<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6" *ngFor="let rec of recommendedMovies | slice:0:6">
+						<div [routerLink]="['/movies/movie/', rec.id]" class="movie-item-recom">
 							<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{rec.poster_path}}" class="recommImg">
 							<h6>{{rec.title}}</h6>
 						</div>

@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     }); 
   }
 
-  isLoggedIn: boolean; 
+  loginError: boolean; 
 
   ngOnInit() {
   }
@@ -54,13 +54,31 @@ export class LoginComponent implements OnInit {
             /* With account ID  we can get favourite Movies and get their IDs*/
             this.movieService.getFavouriteMovies().subscribe(res => {
               localStorage.setItem("favouriteMovieIds", JSON.stringify(res.results.map(a => a.id)));
-
+               this.router.navigate(['movies/popular']);
+            },
+            error =>{
+              console.log("Error. Reason:", error.statusText);
             })
+          },
+          error =>{
+            console.log("Error. Reason:", error.statusText);
           })
+        },
+        error =>{
+          console.log("Error. Reason:", error.statusText);
+          this.router.navigate(['login']);
         })
+      },
+      error =>{
+        console.log("Error. Reason:", error.statusText);
+        this.router.navigate(['login']);
+        this.loginError = true; 
       })
+    },
+    error =>{
+      console.log("Error. Reason:", error.statusText);
     })
-    this.router.navigate(['movies/popular']);
+    
   }
 
   

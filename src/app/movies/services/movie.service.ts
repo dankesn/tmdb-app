@@ -15,31 +15,31 @@ export class MovieService {
 
   constructor(private http: HttpClient) { }
 
- /* Get popular/upcoming or now-playing movies depending on the list parameter */
+  /* Get popular/upcoming or now-playing movies depending on the list parameter */
   getMovies(list: string, params?: any ): Observable<MovieList> { 
 
-     let queryParams = {}; 
+    let queryParams = {}; 
 
-     if(params) {
+    if(params) {
       queryParams = {
         params: new HttpParams()
-          .set("page", params.page && params.page.toString() || '1')
+        .set("page", params.page && params.page.toString() || '1')
       }
     }
-  	return this.http.get(`${baseUrl}movie/${list}?api_key=${apiKey}`, queryParams).map(res =>{
-  		return new MovieList(res); 
-  	})
-  	
+    return this.http.get(`${baseUrl}movie/${list}?api_key=${apiKey}`, queryParams).map(res =>{
+      return new MovieList(res); 
+    })
+
   }
 
   searchMovies(searchString:string, params?:any): Observable<MovieList> {
 
-        let queryParams = {}; 
+    let queryParams = {}; 
 
-     if(params) {
+    if(params) {
       queryParams = {
         params: new HttpParams()
-          .set("page", params.page && params.page.toString() || '1')
+        .set("page", params.page && params.page.toString() || '1')
       }
     }
     return this.http.get(`${baseUrl}search/movie?api_key=${apiKey}&language=en-US&query=${searchString}`, queryParams).map(res =>{
@@ -65,26 +65,25 @@ export class MovieService {
 
   getFavouriteMovies(params?: any): Observable<MovieList> {
 
-     let queryParams = {}; 
+    let queryParams = {}; 
 
-     if(params) {
+    if(params) {
       queryParams = {
         params: new HttpParams()
-          .set("page", params.page && params.page.toString() || '1')
+        .set("page", params.page && params.page.toString() || '1')
       }
     }
     let tempId = (JSON.parse(localStorage.getItem("currentUser"))).id;
-    console.log(tempId); 
     return this.http.get(`${baseUrl}account/${tempId}/favorite/movies?api_key=${apiKey}&session_id=${JSON.parse(sessionStorage.getItem("sessionId"))}`, queryParams).map(res =>{
       return new MovieList(res); 
     })
   }
 
-  isFavouriteMovie(id){
+  isFavouriteMovie(id):boolean{
     let favouriteMovieIds = JSON.parse(localStorage.getItem("favouriteMovieIds"));
-      if (favouriteMovieIds.indexOf(id) > -1) {
-        return true;
-      }else return false;
+    if (favouriteMovieIds.indexOf(id) > -1) {
+      return true;
+    }else return false;
   }
 
   addOrRemoveFromFavourite(newFav){
@@ -94,11 +93,11 @@ export class MovieService {
 
     if (newFav.favorite == false){
       let index = favouriteMovieIds.indexOf(newFav.media_id)
-        if (index > -1) {
+      if (index > -1) {
         favouriteMovieIds.splice(index, 1);
         localStorage.setItem('favouriteMovieIds', JSON.stringify(favouriteMovieIds));
-       }
-     } else {favouriteMovieIds.push(newFav.media_id);
+      }
+    } else {favouriteMovieIds.push(newFav.media_id);
       localStorage.setItem('favouriteMovieIds', JSON.stringify(favouriteMovieIds)); 
     }
     
@@ -107,4 +106,4 @@ export class MovieService {
     })
   }
 
- }
+}

@@ -25,7 +25,6 @@ export class MovieListComponent implements OnInit {
   constructor(private route: ActivatedRoute, private movieService: MovieService, private authService: AuthService) { }
 
   ngOnInit() {
-    console.log(JSON.parse(localStorage.getItem("currentUser")))
     this.route.params.subscribe(params =>{
       this.list = this.route.snapshot.paramMap.get('list');
       this.updateMovies();    

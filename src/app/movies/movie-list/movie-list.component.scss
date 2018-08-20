@@ -1,9 +1,12 @@
-
+*{
+	color: white; 
+}
 .movie-template {
-
+		margin-top: 2em; 
 	.movie-item {
 		width: 80%;
 		cursor: pointer;
+		outline: none; 
 
 		&:hover{
 			opacity: 0.85;  
@@ -11,7 +14,6 @@
 
 		p {
 			font-size: 1em;
-			color: white; 
 			font-weight: lighter;
 			margin-top: 1em;  
 			height: 2em; 
@@ -30,16 +32,21 @@
 .movie-details{
 	height: 100%; 
 	span {
-		color: white;
 		padding: 1em;  
 	}
 
 	.favImg{
-	width:15%;
-	height:15%;
+	width:10%;
+	height:10%;
+	cursor: pointer; 
 	}
 }
 
 .pagination-template{
 	margin: 1em; 
+}
+
+h5{
+	color: yellow; 
+	display: inline;
 }

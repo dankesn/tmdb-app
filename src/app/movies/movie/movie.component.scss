@@ -1,9 +1,41 @@
-.recommImg {
-	width: 40;
-	height: 40%;
-}
 
 .favImg {
-	width:10%;
-	height:10%;
+	width:8%;
+	height:8%;
+}
+
+.movie-desc {
+	color: white; 
+
+	h2{
+		display: inline-block; 
+	}
+
+	.movie-genres{
+		color: yellow;
+		margin: 0.5em 0; 
+	}
+
+
+}
+
+hr {
+	border-color: #006666;
+}
+
+.movie-recom{
+	color: white; 
+
+	.movie-item-recom{
+		cursor: pointer; 
+		outline: none; 
+		img {
+			width: 60%; 
+		}
+	}
+	
+}
+
+.voting {
+	color: yellow; 
 }
