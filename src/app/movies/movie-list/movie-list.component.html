@@ -1,4 +1,4 @@
-	<div class="row">
+	<div class="row" class="search-row">
 		<div class="col">
 			<tmdb-search-form (onSearch)="searchMovies($event)"></tmdb-search-form>
 		</div>
@@ -11,21 +11,21 @@
 	
 
 	<div class="row">
-		<div class="col-3" *ngFor="let movie of movies">
+		<div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 movie-template" *ngFor="let movie of movies">
 			<div>
-			<div  [routerLink]="['/movies/movie/', movie.id]"  class="movie-item">
-				<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{movie.poster_path}}" class="movie-poster">
-				<p >{{movie.title}}</p>
-			</div>
-			<div>
-				<span>{{movie.release_date | slice:0:4}}</span>
-			<a (click)="addToFavourites(movie.id)"><img src="{{isFavourite(movie.id)}}" class="favImg" *ngIf="isLoggedIn()"></a>
-			</div>
+				<div  [routerLink]="['/movies/movie/', movie.id]" class="movie-item">
+					<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{movie.poster_path}}" class="movie-poster">
+					<p>{{movie.title}}</p>
+				</div>
+				<div class="movie-details">
+					<span>{{movie.release_date | slice:0:4}}</span>
+					<a (click)="addToFavourites(movie.id)"><img src="{{isFavourite(movie.id)}}" class="favImg" *ngIf="isLoggedIn()"></a>
+				</div>
 			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col">
+		<div class="col pagination-template">
 			<tmdb-pagination [totalItems]="movieList?.total_results" [totalPages]="movieList?.total_pages" (pageChange)="updateMovies($event)"></tmdb-pagination>
 		</div>	
 	</div>

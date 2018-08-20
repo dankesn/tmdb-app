@@ -1,17 +1,45 @@
-.favImg {
-	width:15%;
-	height:15%;
+
+.movie-template {
+
+	.movie-item {
+		width: 80%;
+		cursor: pointer;
+
+		&:hover{
+			opacity: 0.85;  
+		}
+
+		p {
+			font-size: 1em;
+			color: white; 
+			font-weight: lighter;
+			margin-top: 1em;  
+			height: 2em; 
+
+		}
+
+		.movie-poster{
+			border-radius: 5px; 
+		}
+	}
+}
+.search-row {
+	margin-bottom: 2em; 
 }
 
-.movie-item {
-
-	cursor: pointer;
-
-	&:hover{
-		opacity: 0.85;  
+.movie-details{
+	height: 100%; 
+	span {
+		color: white;
+		padding: 1em;  
 	}
 
-	.movie-poster{
-		border-radius: 5px; 
+	.favImg{
+	width:15%;
+	height:15%;
 	}
+}
+
+.pagination-template{
+	margin: 1em; 
 }
