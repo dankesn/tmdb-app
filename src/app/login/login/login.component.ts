@@ -49,19 +49,23 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('currentUser', JSON.stringify(res));
             this.authservice.setUserLoggedIn();
             this.authservice.setUsername(res.username);  
-            
+            let favMovieArray = [];
 
             /* With account ID  we can get favourite Movies and get their IDs*/
             this.movieService.getFavouriteMovies().subscribe(res => {
-              localStorage.setItem("favouriteMovieIds", JSON.stringify(res.results.map(a => a.id)));
+              /* We need all favourite movies IDs, from all pages*/
+               this.movieService.getAllMovies(res);
+              
                this.router.navigate(['movies/popular']);
             },
             error =>{
               console.log("Error. Reason:", error.statusText);
+              this.router.navigate(['login']);
             })
           },
           error =>{
             console.log("Error. Reason:", error.statusText);
+            this.router.navigate(['login']);
           })
         },
         error =>{

@@ -92,7 +92,7 @@ export class MovieService {
     let favouriteMovieIds = JSON.parse(localStorage.getItem("favouriteMovieIds"));
 
     if (newFav.favorite == false){
-      let index = favouriteMovieIds.indexOf(newFav.media_id)
+        let index = favouriteMovieIds.indexOf(newFav.media_id)
       if (index > -1) {
         favouriteMovieIds.splice(index, 1);
         localStorage.setItem('favouriteMovieIds', JSON.stringify(favouriteMovieIds));
@@ -104,6 +104,29 @@ export class MovieService {
     return this.http.post(`https://api.themoviedb.org/3/account/${tempId}/favorite?api_key=${apiKey}&session_id=${JSON.parse(sessionStorage.getItem("sessionId"))}`, newFav).map(res =>{
       return new FavouriteMovieUpdate(res); 
     })
+  }
+
+  getAllFavouriteMovies(){
+    let tempId = (JSON.parse(localStorage.getItem("currentUser"))).id;
+    return this.http.get(`${baseUrl}account/${tempId}/favorite/movies?api_key=${apiKey}&session_id=${JSON.parse(sessionStorage.getItem("sessionId"))}`).map(res =>{
+      return new MovieList(res); 
+    })
+  }
+
+  getAllMovies(favouriteMovieList){
+    let favMovieArray1 = favouriteMovieList.results.map(a => a.id);
+     localStorage.setItem("favouriteMovieIds", JSON.stringify(favMovieArray1));
+     let favMovieArray2 = [];  
+     if (favouriteMovieList.total_pages > 1){
+           for (let i = 2;  i <= favouriteMovieList.total_pages; i++){
+              this.getFavouriteMovies({'page': i}).subscribe(data =>{
+              favMovieArray2 = data.results.map(a => a.id);
+              favMovieArray1 = favMovieArray1.concat(favMovieArray2);
+             localStorage.setItem("favouriteMovieIds", JSON.stringify(favMovieArray1));
+             }) 
+              }
+            } 
+         
   }
 
 }
