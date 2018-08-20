@@ -1,27 +1,31 @@
-<div class="row">
-    <div class="col">
-      <tmdb-search-form (onSearch)="searchMovies($event)"></tmdb-search-form>
-    </div>
-  </div>
-  <div class="row"> 
-    <div class="col" *ngIf="movies?.length == 0"> 
-    	<p>No movies match your search</p>
-    </div>
-</div>
-     
+	<div class="row">
+		<div class="col">
+			<tmdb-search-form (onSearch)="searchMovies($event)"></tmdb-search-form>
+		</div>
+	</div>
+	<div class="row"> 
+		<div class="col" *ngIf="movies?.length == 0"> 
+			<p>No movies match your search</p>
+		</div>
+	</div>
+	
 
-  <div class="row">
-	<div class="col-3" *ngFor="let movie of movies">
-		<div  [routerLink]="['/movies/movie/', movie.id]">
-		<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{movie.poster_path}}">
-		<p >{{movie.title}}</p>
-		<span>{{movie.release_date | slice:0:4}}</span>
-		<a (click)="addToFavourites(movie.id)"><img src="{{isFavourite(movie.id)}}" class="favImg" *ngIf="isLoggedIn()"></a>
+	<div class="row">
+		<div class="col-3" *ngFor="let movie of movies">
+			<div>
+			<div  [routerLink]="['/movies/movie/', movie.id]"  class="movie-item">
+				<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{movie.poster_path}}" class="movie-poster">
+				<p >{{movie.title}}</p>
+			</div>
+			<div>
+				<span>{{movie.release_date | slice:0:4}}</span>
+			<a (click)="addToFavourites(movie.id)"><img src="{{isFavourite(movie.id)}}" class="favImg" *ngIf="isLoggedIn()"></a>
+			</div>
+			</div>
+		</div>
 	</div>
+	<div class="row">
+		<div class="col">
+			<tmdb-pagination [totalItems]="movieList?.total_results" [totalPages]="movieList?.total_pages" (pageChange)="updateMovies($event)"></tmdb-pagination>
+		</div>	
 	</div>
-</div>
-<div class="row">
-	<div class="col">
-		<tmdb-pagination [totalItems]="movieList?.total_results" [totalPages]="movieList?.total_pages" (pageChange)="updateMovies($event)"></tmdb-pagination>
-	</div>	
-</div>

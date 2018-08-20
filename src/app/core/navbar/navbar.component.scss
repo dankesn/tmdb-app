@@ -1,0 +1,42 @@
+
+.navigation {
+	background-color: #006666;
+	height: 20vh;
+
+
+	.title {
+		color: #14141f;
+		font-size: 2em;
+		font-weight: bold; 
+		margin-left: 2em;   
+	}
+
+	.nav-line { 
+			background: #14141f;
+		.nav-item {
+			padding-right:0.5em;
+			padding-left:0.5em; 
+			width: 20%; 
+			border: 1px;  
+			text-align: center; 
+			border-style: solid; 
+
+			&:hover{
+			background: #006666;
+			}
+
+			.nav-link{
+				color: white;
+				font-size: 1.1em; 
+				margin-top: 1em;
+
+			}
+			
+		}
+	}
+
+	.hello {
+		font-size: 1.5em; 
+		
+	}
+}

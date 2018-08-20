@@ -74,6 +74,7 @@ export class MovieService {
       }
     }
     let tempId = (JSON.parse(localStorage.getItem("currentUser"))).id;
+    console.log(tempId); 
     return this.http.get(`${baseUrl}account/${tempId}/favorite/movies?api_key=${apiKey}&session_id=${JSON.parse(sessionStorage.getItem("sessionId"))}`, queryParams).map(res =>{
       return new MovieList(res); 
     })

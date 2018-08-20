@@ -40,7 +40,7 @@ import { LoginComponent } from './login/login/login.component';
     ReactiveFormsModule,
   ],
   providers: [MovieService,
-               AuthService],
+               AuthService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -16,12 +16,7 @@ export class NavbarComponent implements OnInit {
 
   logout(){
     this.authService.logout().subscribe(res=>{
-      this.authService.isUserLoggedIn = false; 
-      localStorage.removeItem('currentUser');
-      localStorage.removeItem('favouriteMovieIds');
-      sessionStorage.removeItem('sessionId');
-      this.router.navigate(['movies/popular']);
-    }); 
+   }); 
   }
 
   isLoggedIn(){

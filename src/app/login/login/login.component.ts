@@ -13,18 +13,18 @@ export class LoginComponent implements OnInit {
 	loginForm: FormGroup; 
 
   constructor(private fb: FormBuilder, 
-  			  private authservice: AuthService, 
-  			  private movieService: MovieService,
-  			  private router: Router) { 
+    private authservice: AuthService, 
+    private movieService: MovieService,
+    private router: Router) { 
 
-  this.loginForm = this.fb.group({
-			'username': '',
-			'password' : '',
-			'request_token': ''
-		}); 
-}
+    this.loginForm = this.fb.group({
+      'username': '',
+      'password' : '',
+      'request_token': ''
+    }); 
+  }
 
-isLoggedIn: boolean; 
+  isLoggedIn: boolean; 
 
   ngOnInit() {
   }
@@ -32,35 +32,35 @@ isLoggedIn: boolean;
   login(){		
   	/* First create request_token */
   	this.authservice.createRequestToken().subscribe(res =>{
-  			if (res && res.request_token){
-  			this.loginForm.value.request_token = res.request_token;
-  			localStorage.setItem('request_token', JSON.stringify(res.request_token)); 
-  			}
-  	
-		/* With user data validate token*/
-  		this.authservice.validateToken(this.loginForm.value).subscribe(res => {
-       
-  			/* With validated token we can get session ID*/
-  			this.authservice.createSessionId().subscribe(res => {
-  			sessionStorage.setItem('sessionId', JSON.stringify(res.session_id));
-  	
-  				/* With session ID  we can get account ID */
-  				this.authservice.getAccountId().subscribe(res => {
-  				localStorage.setItem('currentUser', JSON.stringify(res));
-          this.authservice.setUserLoggedIn();
-          this.authservice.setUsername(res.username);  
-  		
+      if (res && res.request_token){
+        this.loginForm.value.request_token = res.request_token;
+        localStorage.setItem('request_token', JSON.stringify(res.request_token)); 
+      }
+      
+      /* With user data validate token*/
+      this.authservice.validateToken(this.loginForm.value).subscribe(res => {
+        
+        /* With validated token we can get session ID*/
+        this.authservice.createSessionId().subscribe(res => {
+          sessionStorage.setItem('sessionId', JSON.stringify(res.session_id));
+          
+          /* With session ID  we can get account ID */
+          this.authservice.getAccountId().subscribe(res => {
+            localStorage.setItem('currentUser', JSON.stringify(res));
+            this.authservice.setUserLoggedIn();
+            this.authservice.setUsername(res.username);  
+            
 
-  					/* With account ID  we can get favourite Movies and get their IDs*/
-  					this.movieService.getFavouriteMovies().subscribe(res => {
-  					localStorage.setItem("favouriteMovieIds", JSON.stringify(res.results.map(a => a.id)));
+            /* With account ID  we can get favourite Movies and get their IDs*/
+            this.movieService.getFavouriteMovies().subscribe(res => {
+              localStorage.setItem("favouriteMovieIds", JSON.stringify(res.results.map(a => a.id)));
 
-  					})
-  				})
-  			})
-  		})
- 	})
- 	 this.router.navigate(['movies/popular']);
+            })
+          })
+        })
+      })
+    })
+    this.router.navigate(['movies/popular']);
   }
 
   
