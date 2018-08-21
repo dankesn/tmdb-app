@@ -27,14 +27,21 @@
     constructor(private movieService: MovieService, private route: ActivatedRoute, private authService: AuthService) { }
 
     ngOnInit() {
+      /* get Movie by id*/
       this.route.params.subscribe(params =>{
         this.id = Number(this.route.snapshot.paramMap.get('id'));
         this.movieService.getMovieDetails(this.id).subscribe(res =>{
           this.movie = res; 
+        },
+        error =>{
+          console.log("Error. Reason:", error.statusText);
         })
 
         this.movieService.getMovieRecommendation(this.id).subscribe(res =>{
           this.recommendedMovies = res.results;  
+        },
+        error =>{
+          console.log("Error. Reason:", error.statusText);
         })
       }
 

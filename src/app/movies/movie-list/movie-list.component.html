@@ -11,8 +11,8 @@
 	
 	<div class="row">
 		<div class="col">
-			<!-- to remove underscore in now_playing -->
 			<h5 *ngIf="list !=='now_playing'">{{list | titlecase}} &nbsp;Movies</h5>
+			<!-- to remove underscore in now_playing -->
 			<h5 *ngIf="list =='now_playing'"> Now playing </h5>
 			<span>({{movieList?.total_results}})</span>
 		</div>

@@ -1,8 +1,11 @@
+
+@import '../../sass/_variables';
+
 *{
 	color: white; 
 }
 .movie-template {
-		margin-top: 2em; 
+	margin-top: 2em; 
 	.movie-item {
 		width: 80%;
 		cursor: pointer;
@@ -36,9 +39,9 @@
 	}
 
 	.favImg{
-	width:10%;
-	height:10%;
-	cursor: pointer; 
+		width:10%;
+		height:10%;
+		cursor: pointer; 
 	}
 }
 
@@ -47,6 +50,7 @@
 }
 
 h5{
-	color: yellow; 
+	color: $nav-color; 
 	display: inline;
+	font-weight: bold; 
 }

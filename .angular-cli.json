@@ -19,7 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "tmdb",
       "styles": [
-        "styles.scss",
+        "app/sass/styles.scss",
         "assets/css/bootstrap.css"
       ],
       "scripts": [],

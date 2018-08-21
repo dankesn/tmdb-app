@@ -1,67 +1,84 @@
+@import '../../sass/_variables';
+
+.navigation {
+	background-color: $nav-color;
+
+
+	.title {
+		color: #14141f;
+		font-size: 2em;
+		font-weight: bold; 
+		margin-left: 2em;   
+	}
+
+	.nav-line { 
+		background: $background-color;
+		
+		.nav-item {
+			padding-right:0.5em;
+			padding-left:0.5em; 
+			border: 1px;  
+			text-align: center; 
+			border-style: solid; 
+
+			&:hover{
+				background: $nav-color;
+			}
+
+			.nav-link{
+				color: white;
+				font-size: 1.1em;
+				vertical-align: text-bottom;	
+			}
+		}
+	}
+
+	.hello {
+		font-size: 1.5em; 
+
+	}
+}
+
+.logo {
+	img {
+		width: 90%; 
+	}
+}
+
+@media only screen and (max-width: 770px) {
+
+	.logo {
+		display: none; 
+	}
 
 	.navigation {
-		background-color: #006666;
-		height: auto;
-
-
-		.title {
-			color: #14141f;
-			font-size: 2em;
-			font-weight: bold; 
-			margin-left: 2em;   
-		}
-
-		.nav-line { 
-			background: #14141f;
-			.nav-item {
-				padding-right:0.5em;
-				padding-left:0.5em; 
-				border: 1px;  
-				text-align: center; 
-				border-style: solid; 
-
-				&:hover{
-					background: #006666;
-				}
-
-				.nav-link{
-					color: white;
-					font-size: 1.1em;
-					vertical-align: text-bottom;	
-				}
+		position: static;
+		.nav-line {
+			.nav-item{
+				padding:0; 
 			}
 		}
 
-		.hello {
-			font-size: 1.5em; 
-			
-		}
-	}
-
-	.logo {
-		img {
-			width: 90%; 
-		}
-	}
-
-	@media only screen and (max-width: 770px) {
-
-		.logo {
+		.title {
 			display: none; 
 		}
 
-		.navigation {
-				position: static;
-				.nav-line {
-					.nav-item{
-						padding:0; 
-					}
-				}
+	}
 
-			.title {
-				display: none; 
+}
+
+@media only screen and (max-width: 580px) {
+	.navigation {
+
+		.nav-line {
+			.nav-item{
+				padding-right: 5em; 
+				padding-left: 5em; 
+				text-align: center; 
 			}
-
 		}
 
+
+
 	}
+}

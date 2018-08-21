@@ -1,8 +1,10 @@
+@import '../../sass/_variables';
+
 .copyright {
 	font-size: 0.7em; 
 	text-align: right;
 	color: white; 
 }
 hr {
-	border-color: #006666;
+	border-color: $nav-color;
 }

@@ -63,8 +63,6 @@
         sessionStorage.removeItem('sessionId');
         this.router.navigate(['movies/popular']);
         return res; 
-
-
       })
     }
 

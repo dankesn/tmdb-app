@@ -40,21 +40,23 @@ export class LoginComponent implements OnInit {
       /* With user data validate token*/
       this.authservice.validateToken(this.loginForm.value).subscribe(res => {
         
-        /* With validated token we can get session ID*/
+        /* With validated token  get session ID*/
         this.authservice.createSessionId().subscribe(res => {
           sessionStorage.setItem('sessionId', JSON.stringify(res.session_id));
           
-          /* With session ID  we can get account ID */
+          /* With session ID   get account ID */
           this.authservice.getAccountId().subscribe(res => {
+
+            if(res && res.id){
             localStorage.setItem('currentUser', JSON.stringify(res));
             this.authservice.setUserLoggedIn();
             this.authservice.setUsername(res.username);  
-            let favMovieArray = [];
+             }
 
             /* With account ID  we can get favourite Movies and get their IDs*/
             this.movieService.getFavouriteMovies().subscribe(res => {
               /* We need all favourite movies IDs, from all pages*/
-               this.movieService.getAllMovies(res);
+               this.movieService.getAllFavouriteMovies(res);
               
                this.router.navigate(['movies/popular']);
             },
