@@ -33,7 +33,7 @@
 			<br>
 			<div>
 				<div class="row">
-					<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6" *ngFor="let rec of recommendedMovies | slice:0:6">
+					<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 rec-movie" *ngFor="let rec of recommendedMovies | slice:0:6">
 						<div [routerLink]="['/movies/movie/', rec.id]" class="movie-item-recom">
 							<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{rec.poster_path}}" class="recommImg">
 							<h6>{{rec.title}}</h6>

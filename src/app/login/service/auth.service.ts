@@ -22,25 +22,25 @@
 
     constructor(private http: HttpClient, private router: Router) { }
 
-    createRequestToken(){
+    createRequestToken():Observable<Token>{
       return this.http.get(`${baseUrl}authentication/token/new?api_key=${apiKey}`).map(res =>{
         return new Token(res); 
       })
     }
 
-    validateToken(user){
+    validateToken(user): Observable<Token>{
       return this.http.post(`${baseUrl}authentication/token/validate_with_login?api_key=${apiKey}` , user).map(res =>{
         return new Token(res); 
       })
     }
 
-    createSessionId(){
+    createSessionId():Observable<Session>{
       return this.http.post(`${baseUrl}authentication/session/new?api_key=${apiKey}`, {'request_token' :JSON.parse(localStorage.getItem("request_token"))}).map(res=>{
         return new Session (res); 
       })
     }
 
-    getAccountId(){
+    getAccountId():Observable<Account>{
       return this.http.get(`${baseUrl}account?api_key=${apiKey}&session_id=${JSON.parse(sessionStorage.getItem("sessionId"))}`).map(res =>{
         return new Account(res); 
       })

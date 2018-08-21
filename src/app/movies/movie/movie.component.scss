@@ -28,11 +28,20 @@ hr {
 .movie-recom{
 	color: white; 
 
+	.rec-movie {
+		margin:0 auto; 
+	}
+
 	.movie-item-recom{
 		cursor: pointer; 
 		outline: none; 
+		margin: 0 auto; 
 		img {
-			width: 60%; 
+			width: 60%;
+			margin: 0 auto;  
+		}
+		h6 {
+			margin: 1em auto; 
 		}
 	}
 	
